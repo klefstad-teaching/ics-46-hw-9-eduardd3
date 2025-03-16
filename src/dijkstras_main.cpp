@@ -25,4 +25,6 @@ int main () {
     vector<int> expectedPath = {0, 3, 1, 2};
     cout << ((path == expectedPath) ? "PASSED" : "FAILED") << endl;
 
+    print_path(path,10);
+
 }
