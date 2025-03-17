@@ -12,48 +12,45 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
     if (str1.size() == str2.size()) { 
        return (char_differ (str1, str2) == d);
     }
-        
-    if (str1.size() + 1 ==  str2.size()) {
-            //string copyWrd2 = str2;
-    
-            for (int i = 0; i < str1.size(); i++) { 
-                if (str1[i] != str2[i]) { 
-                    string copyWrd2 = str2;
-                    copyWrd2.erase(i, 1);
-                    return (char_differ (copyWrd2, str1) == d);
-                }
-            }
-        string copyWrd2 = str2;
-        copyWrd2.erase(str2.size() - 1, 1);
-        return (char_differ(copyWrd2, str1) == d);
-
-        }
-    else if (str2.size() + 1 == str1.size()){ 
-            for (int i = 0; i < str2.size(); i++) { 
-                if (str1[i] != str2[i]) { 
+    else if (str1.size() + 1 ==  str2.size()) { // INsert
+            for (int i = 0; i <= str1.size(); i++) { 
                     string copyWrd1 = str1;
-                    copyWrd1.erase(i, 1);
+                    copyWrd1.insert(i, 1,str2[i]);
+                if (copyWrd1 == str2) { 
                     return (char_differ (copyWrd1, str2) == d);
                 }
             }
-            string copyWrd1 = str1;    //  word1 is longer
-            copyWrd1.erase(str1.size() - 1, 1);
-            return (char_differ (copyWrd1,  str2) == d);
     }
+    else if (str2.size() + 1 == str1.size()){ 
+        for (int i = 0; i < str1.size(); i++) { 
+            string copyWrd1 = str1;
+            copyWrd1.erase(i, 1);
 
+            if (copyWrd1 == str2) { 
+                return (char_differ (copyWrd1, str2) == d);
+            }
+        }
+        return false;
+    }
     return false;
 }
 int char_differ(const string& word1, const string& word2) { 
     int editDist = 0;
+
     for (int i = 0; i < word1.size(); i++) { 
         if (word1[i] != word2[i]) { 
             editDist++; 
+        }
 
-            if (editDist > 1) { 
-            return -1;
-            }
+        if (editDist > 1) { 
+        return -1;
         }
     }   //  end for 
+
+    if (word1 == word2) { 
+        editDist++;
+    }
+
     return editDist;
 }
 bool is_adjacent(const string& word1, const string& word2) { 
